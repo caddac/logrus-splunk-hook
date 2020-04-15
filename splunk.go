@@ -146,6 +146,9 @@ func (c *Client) doRequest(b *bytes.Buffer) error {
 
 	// receive response
 	res, err := c.HTTPClient.Do(req)
+	if res != nil && res.Body != nil {
+		defer res.Body.Close()
+	}
 	if err != nil {
 		return err
 	}
